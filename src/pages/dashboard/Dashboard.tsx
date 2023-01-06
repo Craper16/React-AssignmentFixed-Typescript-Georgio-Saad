@@ -112,7 +112,7 @@ const Dashboard: React.FC = () => {
           />
         ) : null}
       </InputGroup>
-      {!isSuccess && !isFetching && (
+      {!isSuccess && !isFetching && !isError && (
         <Text
           color={'tomato'}
           marginLeft="44%"
@@ -125,8 +125,8 @@ const Dashboard: React.FC = () => {
       {isError && (
         <Text
           color={'tomato'}
-          marginLeft="44%"
-          width={400}
+          textAlign="center"
+          // width={400}
           padding="6"
         >
           {(error as any).error || (error as any).data?.message}
@@ -134,7 +134,7 @@ const Dashboard: React.FC = () => {
       )}
       <RepeatIcon
         color="#8A2BE2"
-        marginLeft="49%"
+        marginLeft="48.95%"
         onClick={handleRefresh}
       />
       <Box>
