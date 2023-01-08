@@ -76,8 +76,9 @@ const Dashboard: React.FC = () => {
         textAlign="center"
       >
         <Input
-          justifyItems="center"
           type="search"
+          variant="flushed"
+          justifyItems="center"
           alignItems="center"
           margin="auto"
           width={500}
