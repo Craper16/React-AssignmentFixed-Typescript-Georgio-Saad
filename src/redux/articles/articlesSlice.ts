@@ -47,17 +47,10 @@ const articlesSlice = createSlice({
           article.lead_paragraph.includes(action.payload)
       );
     },
-    clearFilteredArticles: (state) => {
-      state.filteredData = initialState.filteredData;
-    },
   },
 });
 
-export const {
-  setArticles,
-  defaultArticles,
-  filterArticles,
-  clearFilteredArticles,
-} = articlesSlice.actions;
+export const { setArticles, defaultArticles, filterArticles } =
+  articlesSlice.actions;
 
 export default articlesSlice.reducer;

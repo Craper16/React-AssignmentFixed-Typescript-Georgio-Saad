@@ -1,18 +1,10 @@
-import {
-  Box,
-  Input,
-  Text,
-  Spinner,
-  InputGroup,
-  InputRightElement,
-} from '@chakra-ui/react';
-import { CloseIcon, RepeatIcon } from '@chakra-ui/icons';
+import { Box, Input, Text, Spinner, InputGroup } from '@chakra-ui/react';
+import { RepeatIcon } from '@chakra-ui/icons';
 import React, { useCallback, useEffect, useState } from 'react';
 import Article from '../../components/Articles/Article';
 import { useFetchArticlesQuery } from '../../redux/api/articlesApi';
 import {
   setArticles,
-  clearFilteredArticles,
   filterArticles,
   defaultArticles,
 } from '../../redux/articles/articlesSlice';
@@ -57,11 +49,6 @@ const Dashboard: React.FC = () => {
     dispatch(filterArticles(text));
   };
 
-  const handleClearSearch = () => {
-    dispatch(clearFilteredArticles());
-    setSearch('');
-  };
-
   window.onscroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop ===
@@ -90,6 +77,7 @@ const Dashboard: React.FC = () => {
       >
         <Input
           justifyItems="center"
+          type="search"
           alignItems="center"
           margin="auto"
           width={500}
@@ -100,17 +88,6 @@ const Dashboard: React.FC = () => {
           value={search}
           onChange={(e) => handleSearch(e.target.value)}
         />
-        {search ? (
-          <InputRightElement
-            children={
-              <CloseIcon
-                marginRight="1420"
-                onClick={handleClearSearch}
-                color="#8A2BE2"
-              />
-            }
-          />
-        ) : null}
       </InputGroup>
       {!isSuccess && !isFetching && !isError && (
         <Text
