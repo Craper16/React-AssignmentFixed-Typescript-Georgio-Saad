@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -14,6 +14,8 @@ import {
 } from '@chakra-ui/react';
 
 const IMG_URL = 'https://static01.nyt.com/';
+
+const CONTENT_WORD_LIMIT = 300;
 
 type ArticleProps = {
   title: string;
@@ -32,7 +34,14 @@ const Article: React.FC<ArticleProps> = ({
   date,
   author,
 }) => {
+  const [hasMore, setHasMore] = useState(false);
   const [readMore, setReadMore] = useState(false);
+
+  useEffect(() => {
+    if (content.length > CONTENT_WORD_LIMIT) {
+      setHasMore(true);
+    }
+  }, [content]);
 
   const handleReadMore = () => {
     setReadMore(!readMore);
@@ -67,13 +76,30 @@ const Article: React.FC<ArticleProps> = ({
               </Heading>
             </Box>
             <Box>
-              {readMore && (
+              {hasMore ? (
+                <Text
+                  pt="2"
+                  fontSize="sm"
+                >
+                  {readMore
+                    ? content
+                    : content.substring(0, CONTENT_WORD_LIMIT) + '...'}
+                </Text>
+              ) : (
                 <Text
                   pt="2"
                   fontSize="sm"
                 >
                   {content}
                 </Text>
+              )}
+              {hasMore && (
+                <Button
+                  variant="link"
+                  onClick={handleReadMore}
+                >
+                  {!readMore ? 'Read More' : 'Collapse'}
+                </Button>
               )}
             </Box>
           </Stack>
@@ -86,12 +112,6 @@ const Article: React.FC<ArticleProps> = ({
             {`Published at: ${date.toString().split('T')[0]} ${author}`}
           </Text>
         </CardFooter>
-        <Button
-          variant="link"
-          onClick={handleReadMore}
-        >
-          {!readMore ? 'Read More' : 'Collapse'}
-        </Button>
       </CardHeader>
     </Card>
   );
