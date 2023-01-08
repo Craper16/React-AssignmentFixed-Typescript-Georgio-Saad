@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -10,6 +10,7 @@ import {
   Heading,
   Stack,
   StackDivider,
+  Button,
 } from '@chakra-ui/react';
 
 const IMG_URL = 'https://static01.nyt.com/';
@@ -31,6 +32,12 @@ const Article: React.FC<ArticleProps> = ({
   date,
   author,
 }) => {
+  const [readMore, setReadMore] = useState(false);
+
+  const handleReadMore = () => {
+    setReadMore(!readMore);
+  };
+
   return (
     <Card
       background="#aab1eebb"
@@ -54,18 +61,20 @@ const Article: React.FC<ArticleProps> = ({
               <Heading
                 size="xs"
                 textTransform="uppercase"
-                textAlign='center'
+                textAlign="center"
               >
                 {abstract}
               </Heading>
             </Box>
             <Box>
-              <Text
-                pt="2"
-                fontSize="sm"
-              >
-                {content}
-              </Text>
+              {readMore && (
+                <Text
+                  pt="2"
+                  fontSize="sm"
+                >
+                  {content}
+                </Text>
+              )}
             </Box>
           </Stack>
         </CardBody>
@@ -77,6 +86,12 @@ const Article: React.FC<ArticleProps> = ({
             {`Published at: ${date.toString().split('T')[0]} ${author}`}
           </Text>
         </CardFooter>
+        <Button
+          variant="link"
+          onClick={handleReadMore}
+        >
+          {!readMore ? 'Read More' : 'Collapse'}
+        </Button>
       </CardHeader>
     </Card>
   );

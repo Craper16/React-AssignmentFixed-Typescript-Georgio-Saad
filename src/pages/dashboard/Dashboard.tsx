@@ -166,6 +166,8 @@ const Dashboard: React.FC = () => {
         {isEnd && !search && (
           <Text
             textAlign="center"
+            p='10'
+            margin="auto"
             fontWeight="bold"
             color={'#8A2BE2'}
           >
