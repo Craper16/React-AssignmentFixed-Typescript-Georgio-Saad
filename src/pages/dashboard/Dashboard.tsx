@@ -49,9 +49,11 @@ const Dashboard: React.FC = () => {
     dispatch(filterArticles(text));
   };
 
+
+
   window.onscroll = () => {
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
+      window.innerHeight + document.documentElement.scrollTop >=
       document.documentElement.offsetHeight
     ) {
       handleLoadMore();
