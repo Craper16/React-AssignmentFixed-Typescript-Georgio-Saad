@@ -15,7 +15,7 @@ import { Formik, Form } from 'formik';
 import { loginValidationSchema } from '../../validation/validation';
 import { useNavigate } from 'react-router';
 
-const Login: React.FC = () => {
+const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

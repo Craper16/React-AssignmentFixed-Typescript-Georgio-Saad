@@ -26,7 +26,7 @@ type ArticleProps = {
   author: string;
 };
 
-const Article: React.FC<ArticleProps> = ({
+const Article: React.JSXElementConstructor<ArticleProps> = ({
   title,
   abstract,
   content,
@@ -48,56 +48,33 @@ const Article: React.FC<ArticleProps> = ({
   };
 
   return (
-    <Card
-      background="#aab1eebb"
-      p={5}
-      margin={'28'}
-    >
+    <Card background='#aab1eebb' p={5} margin={'28'}>
       {images.length > 0 ? <Image src={IMG_URL + images[0].url} /> : null}
       <CardHeader>
-        <Heading
-          size="lg"
-          textAlign="center"
-        >
+        <Heading size='lg' textAlign='center'>
           {title}
         </Heading>
         <CardBody>
-          <Stack
-            divider={<StackDivider />}
-            spacing="4"
-          >
+          <Stack divider={<StackDivider />} spacing='4'>
             <Box>
-              <Heading
-                size="xs"
-                textTransform="uppercase"
-                textAlign="center"
-              >
+              <Heading size='xs' textTransform='uppercase' textAlign='center'>
                 {abstract}
               </Heading>
             </Box>
             <Box>
               {hasMore ? (
-                <Text
-                  pt="2"
-                  fontSize="sm"
-                >
+                <Text pt='2' fontSize='sm'>
                   {readMore
                     ? content
                     : content.substring(0, CONTENT_WORD_LIMIT) + '...'}
                 </Text>
               ) : (
-                <Text
-                  pt="2"
-                  fontSize="sm"
-                >
+                <Text pt='2' fontSize='sm'>
                   {content}
                 </Text>
               )}
               {hasMore && (
-                <Button
-                  variant="link"
-                  onClick={handleReadMore}
-                >
+                <Button variant='link' onClick={handleReadMore}>
                   {!readMore ? 'Read More' : 'Collapse'}
                 </Button>
               )}
@@ -105,10 +82,7 @@ const Article: React.FC<ArticleProps> = ({
           </Stack>
         </CardBody>
         <CardFooter>
-          <Text
-            pt="2"
-            fontSize="sm"
-          >
+          <Text pt='2' fontSize='sm'>
             {`Published at: ${date.toString().split('T')[0]} ${author}`}
           </Text>
         </CardFooter>

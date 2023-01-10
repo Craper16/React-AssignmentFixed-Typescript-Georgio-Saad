@@ -7,30 +7,22 @@ type MainNavprops = {
   handleLogout: () => void;
 };
 
-const MainNavbar: React.FC<MainNavprops> = ({ handleLogout }) => {
+const MainNavbar: React.JSXElementConstructor<MainNavprops> = ({
+  handleLogout,
+}) => {
   const navigate = useNavigate();
 
   const accessToken: string | null = localStorage.getItem('accessToken');
 
   return (
     <>
-      <Box
-        bg={'#aab1eebb'}
-        px={4}
-      >
-        <Flex
-          h={16}
-          alignItems={'center'}
-          justifyContent={'space-between'}
-        >
-          <HStack
-            spacing={8}
-            alignItems={'center'}
-          >
+      <Box bg={'#aab1eebb'} px={4}>
+        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+          <HStack spacing={8} alignItems={'center'}>
             <Box
               fontSize={30}
-              fontWeight="bold"
-              color="#8A2BE2"
+              fontWeight='bold'
+              color='#8A2BE2'
               onClick={() => navigate('/')}
             >
               Articles
