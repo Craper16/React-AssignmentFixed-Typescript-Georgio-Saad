@@ -15,10 +15,11 @@ import Error from './pages/Error';
 import MainNavbar from './components/MainNavbar';
 import jwtDecode from 'jwt-decode';
 import dayjs from 'dayjs';
-import { store } from './redux/store';
+import { useToast } from '@chakra-ui/react';
 
 function App() {
   const dispatch = useAppDispatch();
+  const toast = useToast();
 
   const handleLogout = (): void => {
     dispatch(defaultState());
@@ -31,8 +32,6 @@ function App() {
   );
 
   const handleAutoLoginFromAccessToken = async () => {
-    const { dispatch } = store;
-
     const accessToken = localStorage.getItem('accessToken');
 
     if (!accessToken) {
@@ -43,7 +42,14 @@ function App() {
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
     if (isExpired) {
       dispatch(defaultArticles());
-      return dispatch(defaultState());
+      dispatch(defaultState());
+      return toast({
+        title: 'You must login again to access articles',
+        description: 'Your access token has expired',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
 
     return dispatch(setUser({ accessToken: accessToken }));
