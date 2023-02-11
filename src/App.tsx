@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -6,13 +6,16 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from './redux/hooks';
-import { defaultState } from './redux/auth/authSlice';
+import { defaultState, setUser } from './redux/auth/authSlice';
 import { defaultArticles } from './redux/articles/articlesSlice';
 
 import Home from './pages/dashboard/Dashboard';
 import Login from './pages/auth/Login';
 import Error from './pages/Error';
 import MainNavbar from './components/MainNavbar';
+import jwtDecode from 'jwt-decode';
+import dayjs from 'dayjs';
+import { store } from './redux/store';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -26,6 +29,29 @@ function App() {
   const accessToken: boolean | null = useAppSelector(
     (state) => !!state.auth.accessToken
   );
+
+  const handleAutoLoginFromAccessToken = async () => {
+    const { dispatch } = store;
+
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      return;
+    }
+
+    const user: { exp: number } = jwtDecode(accessToken);
+    const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
+    if (isExpired) {
+      dispatch(defaultArticles());
+      return dispatch(defaultState());
+    }
+
+    return dispatch(setUser({ accessToken: accessToken }));
+  };
+
+  useEffect(() => {
+    handleAutoLoginFromAccessToken();
+  }, []);
 
   return (
     <>

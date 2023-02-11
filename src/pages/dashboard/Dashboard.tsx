@@ -29,8 +29,6 @@ const Dashboard = () => {
     }
   }, [dispatch, data]);
 
-  console.log(data);
-
   const handleLoadMore = useCallback(() => {
     if (!isEnd && !isFetching && !search) {
       return setPage(page + 1);
