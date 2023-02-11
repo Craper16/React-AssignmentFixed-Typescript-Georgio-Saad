@@ -40,9 +40,15 @@ function App() {
 
     const user: { exp: number } = jwtDecode(accessToken);
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
+
+    console.log(user);
+
+    console.log(isExpired);
+
     if (isExpired) {
       dispatch(defaultArticles());
       dispatch(defaultState());
+      localStorage.clear();
       return toast({
         title: 'You must login again to access articles',
         description: 'Your access token has expired',
