@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { articlesResponse } from '../../interfaces/articles/articlesInterfaces';
 
 export const articlesApi = createApi({
   reducerPath: 'articlesApi',
@@ -14,8 +15,8 @@ export const articlesApi = createApi({
   }),
   keepUnusedDataFor: 0,
   endpoints: (builder) => ({
-    fetchArticles: builder.query({
-      query: (page: number) => {
+    fetchArticles: builder.query<articlesResponse, number>({
+      query: (page) => {
         return {
           url: `/articles?page=${page}`,
           method: 'get',

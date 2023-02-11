@@ -24,8 +24,8 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(setUser({ accessToken: data.accessToken }));
-      localStorage.setItem('accessToken', data.accessToken);
+      dispatch(setUser({ accessToken: data?.accessToken! }));
+      localStorage.setItem('accessToken', data?.accessToken!);
       navigate('/');
     }
   }, [isSuccess, dispatch, data?.accessToken, navigate]);

@@ -29,6 +29,8 @@ const Dashboard = () => {
     }
   }, [dispatch, data]);
 
+  console.log(data);
+
   const handleLoadMore = useCallback(() => {
     if (!isEnd && !isFetching && !search) {
       return setPage(page + 1);
@@ -61,55 +63,67 @@ const Dashboard = () => {
   return (
     <>
       <Text
-        textAlign='center'
+        textAlign="center"
         marginTop={50}
-        padding='15'
-        margin='auto'
+        padding="15"
+        margin="auto"
         width={400}
-        color='#8A2BE2'
-        fontSize='xx-large'
+        color="#8A2BE2"
+        fontSize="xx-large"
       >
         Search articles here
       </Text>
-      <InputGroup size='lg' textAlign='center'>
+      <InputGroup
+        size="lg"
+        textAlign="center"
+      >
         <Input
-          type='search'
-          variant='flushed'
-          justifyItems='center'
-          alignItems='center'
-          margin='auto'
+          type="search"
+          variant="flushed"
+          justifyItems="center"
+          alignItems="center"
+          margin="auto"
           width={500}
-          placeholder='Search articles'
-          size='lg'
-          blur='xl'
-          color='#8A2BE2'
+          placeholder="Search articles"
+          size="lg"
+          blur="xl"
+          color="#8A2BE2"
           value={search}
           onChange={(e) => handleSearch(e.target.value)}
         />
       </InputGroup>
       {!isSuccess && !isFetching && !isError && (
-        <Text color={'tomato'} marginLeft='44%' width={400} padding='6'>
+        <Text
+          color={'tomato'}
+          marginLeft="44%"
+          width={400}
+          padding="6"
+        >
           No articles were fetched
         </Text>
       )}
       {isError && (
         <Text
           color={'tomato'}
-          textAlign='center'
+          textAlign="center"
           // width={400}
-          padding='6'
+          padding="6"
         >
           {(error as any).error || (error as any).data?.message}
         </Text>
       )}
-      <RepeatIcon color='#8A2BE2' marginLeft='48.95%' onClick={handleRefresh} />
+      <RepeatIcon
+        color="#8A2BE2"
+        marginLeft="48.95%"
+        onClick={handleRefresh}
+      />
       <Box>
         {search && filteredData.length === 0 ? (
           <Text
-            textAlign='center'
-            fontWeight='bold'
+            textAlign="center"
+            fontWeight="bold"
             color={'#8A2BE2'}
-            padding='12'
+            padding="12"
           >
             Could not find articles!
           </Text>
@@ -143,20 +157,20 @@ const Dashboard = () => {
             })}
         {isFetching && (
           <Spinner
-            justifyContent='center'
-            alignItems='center'
+            justifyContent="center"
+            alignItems="center"
             marginTop={50}
             marginLeft={'48%'}
-            size='xl'
-            color='#8A2BE2'
+            size="xl"
+            color="#8A2BE2"
           />
         )}
         {isEnd && !search && (
           <Text
-            textAlign='center'
-            p='10'
-            margin='auto'
-            fontWeight='bold'
+            textAlign="center"
+            p="10"
+            margin="auto"
+            fontWeight="bold"
             color={'#8A2BE2'}
           >
             You have reached the end of the articles list
